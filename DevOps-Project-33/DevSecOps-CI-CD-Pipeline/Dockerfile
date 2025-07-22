@@ -1,4 +1,3 @@
-#
 #    Copyright 2010-2023 the original author or authors.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,11 +11,18 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-#
 
 FROM openjdk:21
-COPY . /usr/src/myapp
-WORKDIR /usr/src/myapp
-RUN ./mvnw clean package
-CMD ./mvnw cargo:run -P tomcat90
 
+# Copy all files
+COPY . /usr/src/myapp
+
+# Set working directory
+WORKDIR /usr/src/myapp
+
+# Make mvnw executable and run build
+RUN chmod +x mvnw && \
+    ./mvnw clean package
+
+# Run the application
+CMD ["./mvnw", "cargo:run", "-P", "tomcat90"]
