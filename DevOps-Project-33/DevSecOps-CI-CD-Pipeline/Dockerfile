@@ -14,8 +14,8 @@
 
 FROM openjdk:21
 
-# Install Maven
-RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
+# Install Maven using microdnf (Oracle Linux package manager)
+RUN microdnf install -y maven && microdnf clean all
 
 # Set working directory
 WORKDIR /usr/src/myapp
@@ -24,6 +24,7 @@ WORKDIR /usr/src/myapp
 COPY pom.xml .
 
 # Download dependencies (this layer will be cached if pom.xml doesn't change)
+)
 RUN mvn dependency:go-offline -B
 
 # Copy source code
