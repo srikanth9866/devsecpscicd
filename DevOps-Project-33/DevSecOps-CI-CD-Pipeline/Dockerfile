@@ -21,8 +21,8 @@ COPY . /usr/src/myapp
 WORKDIR /usr/src/myapp
 
 # Make mvnw executable and run build
-RUN chmod +x mvnw && \
-    ./mvnw clean package
+RUN chmod +x mvnw
+RUN ./mvnw clean package
 
 # Run the application
 CMD ["./mvnw", "cargo:run", "-P", "tomcat90"]
